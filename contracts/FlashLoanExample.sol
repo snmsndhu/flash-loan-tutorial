@@ -26,4 +26,17 @@ contract FlashLoanExample is FlashLoanSimpleReceiverBase {
         );
     }
 
+    function executeOperation(
+    address asset,
+    uint256 amount,
+    uint256 premium,
+    address initiator,
+    bytes calldata params) external returns(bool) {
+    
+    uint amountOwing = amount.add(premium);
+    IERC20(asset).approve(address(POOL), amountOwing);
+    emit Log(asset, amountOwing);
+    return true;
+  }
+    }
 }
